@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <title> Nota do aluno</title>
+</head>
+<body>
+    <h1>Nota</h1>
+    <button onclick="nota()">Iniciar a soma</button>
+
+
+    <section id="resultado">
+        <p>0 resultado da conta :</p>
+    </section>
+
+    <script>        
+        function nota(){
+            cont=1;
+            var media = 0;
+            let nome = window.prompt('Qual e o seu nome? ')
+
+            while( cont <=4){
+                var notas = parseFloat(prompt(`qual a nota ${cont}?`))
+             media=media+notas;
+             cont ++
+            }
+
+           media=media/4
+
+           if (media >=60){
+               result=" aprovado"
+           }else
+            if (media >=30){
+            result="recuperacao"
+           } else
+           if (media <=29){
+               result="reprovado"
+           }
+                    
+            let res = document.getElementById(`resultado`)
+            res.innerHTML =`<p>O aluno ${nome} teve a media ${media} e esta ${result}</p>`
+            
+        }
+    </script>
+
+</body>
+</Html>
