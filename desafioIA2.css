@@ -1,0 +1,21 @@
+.galeria {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #470aec, #3223b6, #3e3285);
+}
+
+.foto {
+    width: 200px;
+    height: 200px;
+    margin:10px;
+    cursor: pointer;
+}
+
+.ativa {
+    width: 400px;
+    height: 400px;
+    z-index: 1;
+    
+}
