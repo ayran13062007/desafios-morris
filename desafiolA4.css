@@ -1,0 +1,18 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #f64f59, #c4302b);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius:   
+ 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+}
