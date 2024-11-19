@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #800080, #ffffff);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #4b0082;
+            text-align: center;
+        }
+
+        /* Caixa de conteúdo */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Formulário */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #4b0082;
+            display: block;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #6a1d99;
+        }
+
+        /* Resultados */
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        /* Logo no canto direito */
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo -->
+    <img src="img adidas.png" alt="Logo" class="logo"> <!-- Troque o caminho da logo -->
+
+    <h1>Folha de Pagamento</h1>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite o nome">
+        </div>
+        <div class="form-group">
+            <label for="salario">Salário:</label>
+            <input type="number" id="salario" placeholder="Digite o salário" min="0">
+        </div>
+        <button onclick="calcularFolha()">Calcular</button>
+
+        <!-- Resultados -->
+        <div id="resultados" class="result" style="display: none;">
+            <p><strong>Nome:</strong> <span id="resultNome"></span></p>
+            <p><strong>Salário Bruto:</strong> R$ <span id="resultSalarioBruto"></span></p>
+            <p><strong>Imposto de Renda:</strong> R$ <span id="resultImposto"></span></p>
+            <p><strong>Salário Líquido:</strong> R$ <span id="resultSalarioLiquido"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularFolha() {
+            const nome = document.getElementById('nome').value;
+            const salario = parseFloat(document.getElementById('salario').value);
+
+            if (!nome || isNaN(salario)) {
+                alert("Por favor, preencha todos os campos corretamente.");
+                return;
+            }
+
+            let imposto = 0;
+            if (salario > 5000) {
+                imposto = salario * 0.175;
+            } else if (salario > 4000) {
+                imposto = salario * 0.12;
+            } else if (salario > 3000) {
+                imposto = salario * 0.075;
+            } else if (salario > 1800) {
+                imposto = salario * 0.035;
+            }
+
+            const salarioLiquido = salario - imposto;
+
+            // Exibir resultados
+            document.getElementById('resultNome').textContent = nome;
+            document.getElementById('resultSalarioBruto').textContent = salario.toFixed(2);
+            document.getElementById('resultImposto').textContent = imposto.toFixed(2);
+            document.getElementById('resultSalarioLiquido').textContent = salarioLiquido.toFixed(2);
+
+            // Mostrar a seção de resultados
+            document.getElementById('resultados').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
