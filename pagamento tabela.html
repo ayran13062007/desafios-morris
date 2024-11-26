@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #7b00ff, #ced3da);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(199, 6, 238, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #b700ff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #9e00c5;
+        }
+
+        #payroll-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #payroll-list li {
+            padding: 10px;
+            background-color: rgba(187, 29, 230, 0.2);
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        #result p {
+            font-size: 1.2em;
+        }
+
+        #result span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Folha de Pagamento</h1>
+        <form id="payroll-form">
+            <div class="input-group">
+                <label for="name">Nome do Trabalhador:</label>
+                <input type="text" id="name" placeholder="Digite o nome do trabalhador" required>
+            </div>
+            <div class="input-group">
+                <label for="salary">Salário Bruto:</label>
+                <input type="number" id="salary" placeholder="Digite o salário bruto" required>
+            </div>
+            <button type="submit">Adicionar Trabalhador</button>
+        </form>
+
+        <div id="payroll-list">
+            <h2>Trabalhadores:</h2>
+            <ul id="worker-list"></ul>
+        </div>
+
+        <div id="result">
+            <h2>Resumo</h2>
+            <p><strong>Imposto:</strong> <span id="tax-percentage"></span>%</p>
+            <p><strong>Salário Líquido Total:</strong> R$ <span id="net-salary"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('payroll-form');
+        const workerList = document.getElementById('worker-list');
+        const netSalaryElement = document.getElementById('net-salary');
+        const taxPercentageElement = document.getElementById('tax-percentage');
+
+        let workers = [];
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const salary = parseFloat(document.getElementById('salary').value);
+
+            if (name && !isNaN(salary)) {
+                // Adiciona trabalhador à lista
+                workers.push({ name, salary });
+                updateWorkerList();
+                calculateSalaryDetails();
+            }
+            
+            // Limpa os campos do formulário
+            document.getElementById('name').value = '';
+            document.getElementById('salary').value = '';
+        });
+
+        function updateWorkerList() {
+            workerList.innerHTML = '';
+            workers.forEach((worker, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${worker.name} - R$ ${worker.salary.toFixed(2)}`;
+                workerList.appendChild(listItem);
+            });
+        }
+
+        function calculateSalaryDetails() {
+            const totalSalary = workers.reduce((sum, worker) => sum + worker.salary, 0);
+            
+            // Definindo o percentual de imposto como 15%
+            const taxPercentage = 15;
+            const totalTax = (totalSalary * taxPercentage) / 100;
+            const netSalary = totalSalary - totalTax;
+
+            taxPercentageElement.textContent = taxPercentage;
+            netSalaryElement.textContent = netSalary.toFixed(2);
+        }
+    </script>
+</body>
+</html>
