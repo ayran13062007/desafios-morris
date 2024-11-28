@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #8a2be2, #ffffff);
+            padding: 30px;
+            color: #333;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            max-width: 150px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo.png" alt="Logo" class="logo">
+
+    <div class="container">
+        <h2>Folha de Pagamento</h2>
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite o nome">
+
+        <label for="salario">Salário:</label>
+        <input type="number" id="salario" placeholder="Digite o salário" oninput="calcularFolha()">
+
+        <div class="result">
+            <p><strong>Salário Bruto:</strong> R$ <span id="salarioBruto">0,00</span></p>
+            <p><strong>Imposto de Renda:</strong> R$ <span id="imposto">0,00</span></p>
+            <p><strong>Salário Líquido:</strong> R$ <span id="salarioLiquido">0,00</span></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularFolha() {
+            var salario = parseFloat(document.getElementById("salario").value);
+            var imposto = 0;
+            var salarioLiquido = salario;
+
+            // Calculando o imposto de renda baseado nas faixas salariais
+            if (salario > 5000) {
+                imposto = salario * 0.175;
+            } else if (salario > 4000) {
+                imposto = salario * 0.12;
+            } else if (salario > 3000) {
+                imposto = salario * 0.075;
+            } else if (salario > 1800) {
+                imposto = salario * 0.035;
+            }
+
+            salarioLiquido = salario - imposto;
+
+            // Exibindo os resultados
+            document.getElementById("salarioBruto").innerText = salario.toFixed(2);
+            document.getElementById("imposto").innerText = imposto.toFixed(2);
+            document.getElementById("salarioLiquido").innerText = salarioLiquido.toFixed(2);
+        }
+    </script>
+</body>
+</html>
